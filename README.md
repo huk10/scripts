@@ -7,3 +7,5 @@
 * [start-emulator.sh](./start-emulator.sh) 打开安卓模拟器
   * 需要在 `Android Studio` 中安装并配置模拟器
   * 这里模拟器的名称是 `android_11` 需要去设置模拟器名称或修改脚本中对应字符串。
+* [open-vscode](./open-vscode.scpt) Mac 用 vscode 打开当前目录（需编译成 app 并拖动到 finder 工具栏）
+* [open-iterm](./open-iterm.scpt) Mac 用 iterm 打开当前目录（需编译成 app 并拖动到 finder 工具栏）

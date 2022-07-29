@@ -1,6 +1,6 @@
 
-target_name="hu-kunx"
-old_name="old_name"
+target_name="0xhuk"
+old_name="hu-kunx"
 
 change_github_remote_name() {
   cd $1 
