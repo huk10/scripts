@@ -1,0 +1,82 @@
+on run
+	set currentDir to POSIX path of getFinderSelectedDirectory()
+	log POSIX path of currentDir
+	openTerminal(currentDir)
+	-- display dialog POSIX path of getFinderSelectedDirectory()
+	-- display dialog POSIX path of getFinderCurrentWindowDirectory()
+end run
+
+# 获取finder当前选中目录
+# 如果选中的是目录则返回这个目录，如果选中的是文件则返回文件所在的目录
+# 如果没有打开窗口则返回'home'
+on getFinderSelectedDirectory()
+	tell application "Finder"
+		# 如果没有选中的文件或目录，则返回当前窗口目录, 没有打开窗口时返回‘home’
+		# Finder 窗口切换到其他窗口，Finder的选中也不会消失的
+		if selection is {} then
+			if exists Finder window 1 then
+				set finderSelection to target of Finder window 1 as alias
+			else
+				set finderSelection to home as alias
+			end if
+		else
+			# 这里可能拿到的是多个路径，同一个窗口如果选中了多个目录或文件，这里会返回多条
+			# 如果打开了多个窗口，也只会取第一个窗口的选中。
+			set finderSelection to selection as alias list
+		end if
+	end tell
+	
+	# 这里判断如果多选了文件或目录，我们只取第一个目录或文件
+	# 判断变量类型是否是 list 如果是 list 再判断length是否大于1
+	if (class of finderSelection is list) and ((length of finderSelection) > 1) then
+		# 直接覆盖原变量的值
+		set finderSelection to get item 1 of finderSelection
+	end if
+	
+	# 如果选中的不是一个目录，则返回选中路径的父级
+	if (not isDirectory(finderSelection)) then
+		set parentPath to do shell script "dirname " & quoted form of POSIX path of (item 1 of finderSelection)
+		return parentPath
+	end if
+	
+	return finderSelection
+end getFinderSelectedDirectory
+
+# 判断所选文件是否是文件夹
+on isDirectory(someItem)
+	set filePosixPath to quoted form of (POSIX path of someItem)
+	set fileType to (do shell script "file -b " & filePosixPath)
+	if fileType ends with "directory" then return true
+	return false
+end isDirectory
+
+# 获取当前finder窗口所在的文件路径
+# 如果当前没有打开窗口，则返回”home“
+on getFinderCurrentWindowDirectory()
+	tell application "Finder"
+		# 如果存在finder窗口就获取finder窗口对应的目录，否则返回桌面的路径 
+		# 如果同时打开了多个窗口，就获取最后激活的那个(第一个)
+		if exists Finder window 1 then
+			set currentDir to target of Finder window 1 as alias
+		else
+			set currentDir to home as alias
+		end if
+	end tell
+	# log POSIX path of currentDir
+	return currentDir
+end getFinderCurrentWindowDirectory
+
+# 打开终端 Iterm （Tabby 没有暴露API给词典不知道方法）
+on openTerminal(target)
+	tell application "iTerm"
+		activate
+		set newWindow to (create window with default profile)
+		tell current session of newWindow
+			# quoted form of curr_dir 的意思是把 curr_dir 用引号包裹起来，这里直接写 curr_dir 也可以运行
+			write text "cd " & quoted form of target & ";clear;"
+		end tell
+	end tell
+end openTerminal
+
+
+
