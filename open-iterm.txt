@@ -69,12 +69,19 @@ end getFinderCurrentWindowDirectory
 # 打开终端 Iterm （Tabby 没有暴露API给词典不知道方法）
 on openTerminal(target)
 	tell application "iTerm"
-		activate
-		set newWindow to (create window with default profile)
-		tell current session of newWindow
+		if running then
+			create window with default profile
+		else
+			activate
+		end if
+		
+		# 不延时会获取不到 current window
+		delay 0.5
+		tell current session of current window
 			# quoted form of curr_dir 的意思是把 curr_dir 用引号包裹起来，这里直接写 curr_dir 也可以运行
 			write text "cd " & quoted form of target & ";clear;"
 		end tell
+		
 	end tell
 end openTerminal
 
