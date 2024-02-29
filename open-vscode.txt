@@ -1,6 +1,8 @@
 on run
 	tell application "Finder"
 		if selection is {} then
+			-- 此处可能会报错，请查阅下方链接
+			-- https://apple.stackexchange.com/questions/37769/in-terminal-can-i-find-out-the-current-finder-folder/37772#37772
 			set finderSelection to folder of the front window as string
 		else
 			set finderSelection to selection as alias list
