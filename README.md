@@ -49,7 +49,7 @@ Some useful and practical scripts accumulated.
 
 <details>
 <summary>Xcode Behaviors 配置</summary>
-<div align="center"><img src="./xcode-behaviors.png" width="60%"></div>
+<div align="center"><img src="./asserts/xcode-behaviors.png" width="60%"></div>
 </details>
 
 ### [start-emulator.sh](./start-emulator.sh) <a name="start-emulator"></a>
@@ -70,7 +70,7 @@ Some useful and practical scripts accumulated.
 
 <details>
 <summary>效果图</summary>
-<img src="./open-vscode.png" width="60%" />
+<img src="./asserts/open-vscode.png" width="60%" />
 </details>
 
 可以在 Finder 中一键使用 Visual Studio Code 打开当前选中的目录或文件。
@@ -85,14 +85,14 @@ Some useful and practical scripts accumulated.
 
 <details>
 <summary>导出为应用程序</summary>
-<div align="center"><img src="./compile.png" width="60%"></div>
+<div align="center"><img src="./asserts/compile.png" width="60%"></div>
 </details>
 
 ### [open-iterm.scpt](./open-iterm.scpt) <a id="open-iterm"></a>
 
 <details>
 <summary>效果图</summary>
-<img src="./open-iterm.png" width="60%" />
+<img src="./asserts/open-iterm.png" width="60%" />
 </details>
 
 可以在 Finder 中一键打开 iTerm 并进入当前选中的目录或选中文件的所在目录。
@@ -113,7 +113,7 @@ cd 到当前窗口所在目录。*
 
 <details>
 <summary>导出为应用程序</summary>
-<div align="center"><img src="./compile.png" width="60%"></div>
+<div align="center"><img src="./asserts/compile.png" width="60%"></div>
 </details>
 
 ## License
